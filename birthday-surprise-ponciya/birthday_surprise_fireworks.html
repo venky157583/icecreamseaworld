@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frost & Bloom | Customer Experience</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+    <audio id="birthdayMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    </audio>
+}
+
+/* ================= LOADING ================= */
+
+#loadingScreen{
+    position:fixed;
+    inset:0;
+    background:#050816;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity .5s ease, visibility .5s ease;
+}
+
+.loader-logo{
+    width:55px;
+    height:55px;
+    border:4px solid rgba(255,255,255,.15);
+    border-top-color:#ff5fa2;
+    border-right-color:#6c63ff;
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+}
+
+.loading-text{
+    margin-top:22px;
+    font-size:14px;
+    letter-spacing:3px;
+    color:#ddd;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+/* ================= BACKGROUND ================= */
+
+.bg-glow{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.25;
+    pointer-events:none;
+}
+
+.glow1{
+    background:#ff4f9a;
+    top:-200px;
+    left:-150px;
+}
+
+.glow2{
+    background:#6157ff;
+    right:-200px;
+    bottom:-150px;
+}
+
+/* ================= COMMON ================= */
+
+section{
+    min-height:100vh;
+    position:relative;
+    padding:70px 20px;
+}
+
+.container{
+    max-width:1050px;
+    margin:auto;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:30px;
+    color:#ff8fc4;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-bottom:20px;
+}
+
+h1,h2,h3{
+    line-height:1.15;
+}
+
+/* ================= FEEDBACK ================= */
+
+#feedbackPage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#050816;
+}
+
+.feedback-card{
+    width:100%;
+    max-width:720px;
+    padding:45px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:25px;
+    backdrop-filter:blur(20px);
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+
+.company{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:35px;
+}
+
+.company-logo{
+    width:50px;
+    height:50px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#ff5fa2,#7167ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.company-name{
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.company-sub{
+    color:#999;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.feedback-title{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.feedback-desc{
+    color:#aaa;
+    line-height:1.7;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin:20px 0 8px;
+    color:#ddd;
+    font-size:14px;
+}
+
+input,textarea,select{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#ff5fa2;
+}
+
+textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+select option{
+    color:#111;
+}
+
+.rating{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.rating input{
+    display:none;
+}
+
+.rating label{
+    width:45px;
+    height:45px;
+    margin:0;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.rating input:checked + label{
+    background:linear-gradient(135deg,#ff5fa2,#7167ff);
+    border-color:transparent;
+}
+
+.submit-btn{
+    width:100%;
+    margin-top:30px;
+    padding:17px;
+    border:0;
+    border-radius:14px;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(135deg,#ff5fa2,#7167ff);
+    box-shadow:0 15px 35px rgba(255,95,162,.2);
+    transition:.25s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* ================= TRANSITION ================= */
+
+#transitionPage{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:#050816;
+}
+
+.transition-box h2{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.transition-box p{
+    color:#aaa;
+}
+
+/* ================= SURPRISE ================= */
+
+#surprisePage{
+    display:none;
+    background:
+        radial-gradient(circle at 50% 10%,rgba(255,95,162,.18),transparent 35%),
+        #050816;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:clamp(48px,9vw,100px);
+    background:linear-gradient(90deg,#fff,#ff7eb6,#8d85ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero h2{
+    font-size:clamp(30px,5vw,60px);
+    margin-top:15px;
+}
+
+.hero p{
+    margin-top:25px;
+    color:#aaa;
+    font-size:16px;
+}
+
+.scroll{
+    margin-top:50px;
+    color:#ff8fc4;
+    font-size:12px;
+    letter-spacing:3px;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    50%{transform:translateY(8px);}
+}
+
+/* ================= MEMORIES ================= */
+
+.memories{
+    padding-top:100px;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-title h2{
+    font-size:45px;
+}
+
+.section-title p{
+    color:#999;
+    margin-top:12px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.memory{
+    min-height:280px;
+    border-radius:22px;
+    overflow:hidden;
+    position:relative;
+    border:1px solid rgba(255,255,255,.1);
+    background:#111;
+}
+
+.memory img{
+    width:100%;
+    height:100%;
+    min-height:280px;
+    object-fit:cover;
+    display:block;
+    transition:.5s;
+}
+
+.memory:hover img{
+    transform:scale(1.05);
+}
+
+.memory-text{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:25px;
+    background:linear-gradient(transparent,rgba(0,0,0,.8));
+}
+
+/* ================= TAMIL MESSAGE ================= */
+
+.tamil-message{
+    max-width:800px;
+    margin:100px auto;
+    text-align:center;
+    padding:45px 25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.tamil-message h3{
+    font-size:28px;
+    color:#ff91c1;
+    margin-bottom:20px;
+}
+
+.tamil-message p{
+    color:#ddd;
+    line-height:2;
+    font-size:17px;
+}
+
+/* ================= HIDDEN MESSAGE ================= */
+
+.hidden-area{
+    padding:100px 20px 150px;
+    text-align:center;
+}
+
+.hidden-button{
+    display:inline-block;
+    padding:22px 45px;
+    border-radius:60px;
+    border:0;
+    background:linear-gradient(90deg,#ff4f9a,#ff9a62,#7167ff);
+    background-size:200% 200%;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+    animation:gradientMove 3s ease infinite, pulse 2s infinite;
+    box-shadow:0 0 45px rgba(255,95,162,.3);
+}
+
+@keyframes gradientMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes pulse{
+    50%{transform:scale(1.04);}
+}
+
+/* ================= SECRET ================= */
+
+#secretPage{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:
+        radial-gradient(circle,#1c1635,#050816 60%);
+}
+
+.secret-box{
+    width:100%;
+    max-width:500px;
+    padding:45px;
+    border-radius:25px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.secret-box h2{
+    font-size:38px;
+    margin-bottom:12px;
+}
+
+.secret-box p{
+    color:#999;
+    margin-bottom:25px;
+}
+
+.error{
+    color:#ff6f91;
+    margin-top:15px;
+    display:none;
+}
+
+/* ================= FINAL ================= */
+
+#finalPage{
+    display:none;
+    text-align:center;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(255,95,162,.25),transparent 40%),
+        #050816;
+}
+
+.final-content{
+    max-width:850px;
+    margin:auto;
+    padding-top:100px;
+}
+
+.final-content .small{
+    color:#ff91c1;
+    letter-spacing:4px;
+    font-size:13px;
+}
+
+.final-content h1{
+    font-size:clamp(50px,10vw,110px);
+    margin:25px 0;
+    background:linear-gradient(90deg,#fff,#ff77b5,#8a7dff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.final-content h2{
+    font-size:35px;
+    margin-bottom:30px;
+}
+
+.final-content p{
+    max-width:700px;
+    margin:auto;
+    color:#ccc;
+    line-height:2;
+    font-size:17px;
+}
+
+.final-line{
+    margin-top:45px !important;
+    color:#ff9ac4 !important;
+    font-size:22px !important;
+}
+
+/* ================= STARS ================= */
+
+.star{
+    position:fixed;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    opacity:.5;
+    pointer-events:none;
+    z-index:0;
+}
+
+/* ================= BIRTHDAY ENTRY FIREWORKS (ADDED) ================= */
+#entryFireworks{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    display:none;
+    z-index:100000;
+    pointer-events:none;
+    background:
+        radial-gradient(ellipse at 50% 100%, rgba(73,54,137,.38), transparent 62%),
+        radial-gradient(ellipse at 15% 75%, rgba(255,95,162,.14), transparent 42%),
+        radial-gradient(ellipse at 85% 70%, rgba(91,112,255,.18), transparent 45%),
+        linear-gradient(180deg, #01020a 0%, #070b20 54%, #14122d 100%);
+}
+#transitionPage{
+    position:relative;
+    overflow:hidden;
+}
+#transitionPage .transition-box{
+    position:relative;
+    z-index:2;
+    padding:28px;
+    animation:entryTextIn .9s ease both;
+}
+#transitionPage .transition-box .badge,
+#transitionPage .transition-box h2,
+#transitionPage .transition-box p{
+    text-shadow:0 0 18px rgba(255,255,255,.12);
+}
+@keyframes entryTextIn{
+    from{opacity:0; transform:translateY(14px) scale(.98);}
+    to{opacity:1; transform:translateY(0) scale(1);}
+}
+
+@media(max-width:650px){
+
+    .feedback-card{
+        padding:28px 20px;
+    }
+
+    .feedback-title{
+        font-size:32px;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    .rating label{
+        width:40px;
+        height:40px;
+    }
+
+    .section-title h2{
+        font-size:34px;
+    }
+
+    .secret-box{
+        padding:30px 20px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+    <div class="loader-logo"></div>
+    <div class="loading-text">Preparing your experience</div>
+</div>
+
+
+<!-- ================= FEEDBACK PAGE ================= -->
+
+<section id="feedbackPage">
+
+    <div class="container">
+
+        <div class="feedback-card">
+
+            <div class="company">
+                <div class="company-logo">🍦</div>
+
+                <div>
+                    <div class="company-name">
+                        FROST & BLOOM
+                    </div>
+
+                    <div class="company-sub">
+                        PREMIUM ICE CREAMS & DESSERTS
+                    </div>
+                </div>
+            </div>
+
+            <div class="badge">
+                CUSTOMER EXPERIENCE PORTAL
+            </div>
+
+            <h1 class="feedback-title">
+                We'd love to hear from you.
+            </h1>
+
+            <p class="feedback-desc">
+                Your feedback helps Frost & Bloom create better
+                flavours, better moments and happier experiences.
+                Please take a moment to share your thoughts with us.
+            </p>
+
+            <form id="feedbackForm">
+
+                <label for="userName">
+                    Your Name
+                </label>
+
+                <input
+                    id="userName"
+                    type="text"
+                    placeholder="Enter your name"
+                    required
+                >
+
+                <label>
+                    How would you rate your experience?
+                </label>
+
+                <div class="rating">
+
+                    <input type="radio" name="rating" id="r1" value="1" required>
+                    <label for="r1">1</label>
+
+                    <input type="radio" name="rating" id="r2" value="2">
+                    <label for="r2">2</label>
+
+                    <input type="radio" name="rating" id="r3" value="3">
+                    <label for="r3">3</label>
+
+                    <input type="radio" name="rating" id="r4" value="4">
+                    <label for="r4">4</label>
+
+                    <input type="radio" name="rating" id="r5" value="5">
+                    <label for="r5">5</label>
+
+                </div>
+
+                <label for="feedback">
+                    Your Feedback / Suggestion
+                </label>
+
+                <textarea
+                    id="feedback"
+                    placeholder="Tell us what you think..."
+                    required
+                ></textarea>
+
+                <label for="visit">
+                    What did you enjoy most?
+                </label>
+
+                <select id="visit" required>
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option>
+                        Ice Cream Flavours
+                    </option>
+
+                    <option>
+                        Desserts
+                    </option>
+
+                    <option>
+                        Packaging
+                    </option>
+
+                    <option>
+                        Customer Experience
+                    </option>
+
+                    <option>
+                        Everything!
+                    </option>
+
+                </select>
+
+                <button class="submit-btn" type="submit">
+                    Submit Feedback →
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TRANSITION ================= -->
+
+<section id="transitionPage">
+
+    <canvas id="entryFireworks" aria-hidden="true"></canvas>
+    <!-- Original custom fireworks sound effect; keep this file in the same folder. -->
+    <audio id="fireworksAudio" preload="auto"><source src="fireworks.wav" type="audio/wav"></audio>
+
+    <div class="transition-box">
+
+        <div class="badge">
+            FEEDBACK RECEIVED
+        </div>
+
+        <h2>
+            Thank you for sharing your thoughts.
+        </h2>
+
+        <p>
+            There's something special waiting for you...
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SURPRISE PAGE ================= -->
+
+<section id="surprisePage">
+
+    <div class="hero">
+
+        <div>
+
+            <div class="badge">
+                A LITTLE SURPRISE FOR YOU
+            </div>
+
+            <h1>
+                ADVANCE
+            </h1>
+
+            <h2>
+                HAPPY BIRTHDAY
+            </h2>
+
+            <h2 id="heroName">
+                FRIEND NAME
+            </h2>
+
+            <p>
+                சில நினைவுகள்... சில வார்த்தைகள்...
+                ஆனால் எல்லாமே மனதுக்கு நெருக்கமானவை. ✨
+            </p>
+
+            <div class="scroll">
+                ↓ SCROLL DOWN ↓
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEMORIES -->
+
+    <div class="container memories">
+
+        <div class="section-title">
+
+            <div class="badge">
+                LITTLE MEMORIES
+            </div>
+
+            <h2>
+                Moments Worth Remembering
+            </h2>
+
+            <p>
+                Every picture has a story.
+            </p>
+
+        </div>
+
+
+        <div class="gallery">
+
+            <div class="memory">
+                <img src="photos/photo1.jpg" alt="Memory 1">
+                <div class="memory-text">
+                    ஒரு அழகான நினைவு ❤️
+                </div>
+            </div>
+
+            <div class="memory">
+                <img src="photos/photo2.jpg" alt="Memory 2">
+                <div class="memory-text">
+                    சிரிப்புக்கு ஒரு காரணம் ✨
+                </div>
+            </div>
+
+            <div class="memory">
+                <img src="photos/photo3.jpg" alt="Memory 3">
+                <div class="memory-text">
+                    மறக்க முடியாத தருணம் 🌸
+                </div>
+            </div>
+
+            <div class="memory">
+                <img src="photos/photo4.jpg" alt="Memory 4">
+                <div class="memory-text">
+                    இந்த நினைவு எப்போதும் special 💫
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- TAMIL MESSAGE -->
+
+        <div class="tamil-message">
+
+            <h3>
+                ஒரு சின்ன வார்த்தை...
+            </h3>
+
+            <p>
+                life ல  ஒரு சில பேரதான் special person, ரொம்ப புடிக்கும் பொன்சியா அந்த மாறிதான் நீ எனக்கு i like you வக்கீல் அம்மா 💫 ✨(மீசக்கார நண்பா ❤️ ) 
+                <br><br>
+                அப்படிப்பட்ட ஒரு special person-க்கு
+                இந்த சின்ன surprise. ✨
+            </p>
+
+        </div>
+
+
+        <!-- HIDDEN MESSAGE -->
+
+        <div class="hidden-area">
+
+            <div class="badge">
+                THERE'S MORE
+            </div>
+
+            <h2 style="margin-bottom:25px;">
+                இன்னும் ஒரு secret இருக்கு...
+            </h2>
+
+            <button
+                class="hidden-button"
+                onclick="openSecret()"
+            >
+                ✨ HIDDEN MESSAGE FOR YOU ✨
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SECRET KEY PAGE ================= -->
+
+<section id="secretPage">
+
+    <div class="secret-box">
+
+        <div class="badge">
+            PRIVATE MESSAGE
+        </div>
+
+        <h2>
+            One Last Step 🔐
+        </h2>
+
+        <p>
+            There's a secret key hidden only for you.
+        </p>
+
+        <input
+            type="password"
+            id="secretInput"
+            placeholder="Enter the secret key"
+        >
+
+        <button
+            class="submit-btn"
+            onclick="checkSecret()"
+        >
+            Unlock Message ✨
+        </button>
+
+        <div
+            class="error"
+            id="secretError"
+        >
+            Wrong key. Try again 💫
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FINAL PAGE ================= -->
+
+<section id="finalPage">
+
+    <div class="final-content">
+
+        <div class="small">
+            THIS MESSAGE IS JUST FOR YOU
+        </div>
+
+        <h1>
+            HAPPY BIRTHDAY
+        </h1>
+
+        <h2 id="finalName">
+            FRIEND NAME
+        </h2>
+
+        <p>
+            இன்று ஒரு special நாள்.
+            உன் birthday-க்கு advance-ஆ ஒரு சின்ன
+            surprise கொடுக்கணும்னு நினைச்சேன்.
+            <br><br>
+
+            உன் வாழ்க்கையில் வரப்போகும் ஒவ்வொரு நாளும்
+            happiness, peace, success மற்றும்
+            அழகான memories-ஆ நிறைய இருக்கணும்.
+            <br><br>
+
+            நீ நினைக்கிற எல்லா நல்ல விஷயங்களும்
+            உனக்கு கிடைக்கணும்.
+            நீ எப்போதும் இப்படியே happy-ஆ
+            smile பண்ணிக்கிட்டே இருக்கணும். ✨
+        </p>
+
+        <p class="final-line">
+            "சில wishes சொல்லப்படுவதற்காக மட்டும் அல்ல...
+            உண்மையிலேயே நடக்க வேண்டும் என்பதற்காக." ❤️
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   PERSONAL SETTINGS
+   ========================================================= */
+
+const CONFIG = {
+
+    /* Friend name */
+    friendName: "FRIEND NAME",
+
+    /* Secret key */
+    secretKey: "YOUR_SECRET_KEY"
+
+};
+
+
+/* =========================================================
+   PAGE ELEMENTS
+   ========================================================= */
+
+const loadingScreen =
+    document.getElementById("loadingScreen");
+
+const feedbackPage =
+    document.getElementById("feedbackPage");
+
+const transitionPage =
+    document.getElementById("transitionPage");
+
+const surprisePage =
+    document.getElementById("surprisePage");
+
+const secretPage =
+    document.getElementById("secretPage");
+
+const finalPage =
+    document.getElementById("finalPage");
+
+
+/* =========================================================
+   SAFE INITIALIZATION
+   ========================================================= */
+
+function initializePage(){
+
+    /* Set names safely */
+
+    const heroName =
+        document.getElementById("heroName");
+
+    const finalName =
+        document.getElementById("finalName");
+
+    if(heroName){
+        heroName.textContent =
+            CONFIG.friendName;
+    }
+
+    if(finalName){
+        finalName.textContent =
+            CONFIG.friendName;
+    }
+
+
+    /* Create background stars */
+
+    createStars();
+
+
+    /*
+       IMPORTANT FIX:
+
+       Loading screen is now removed automatically.
+       Even if something else has a JavaScript issue,
+       the loading screen will not remain forever.
+    */
+
+    setTimeout(() => {
+
+        if(loadingScreen){
+
+            loadingScreen.style.opacity = "0";
+            loadingScreen.style.visibility = "hidden";
+
+            setTimeout(() => {
+
+                loadingScreen.remove();
+
+            }, 600);
+
+        }
+
+    }, 1000);
+
+}
+
+
+/* =========================================================
+   START PAGE
+   ========================================================= */
+
+if(document.readyState === "loading"){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializePage
+    );
+
+}else{
+
+    initializePage();
+
+}
+
+
+/* =========================================================
+   BIRTHDAY ENTRY FIREWORKS (ADDED)
+   ========================================================= */
+function startEntryFireworks(){
+    const canvas = document.getElementById("entryFireworks");
+    if(!canvas) return;
+    canvas.style.display = "block";
+    const ctx = canvas.getContext("2d", { alpha:true, desynchronized:true });
+    if(!ctx) return;
+
+    let particles = [], rings = [], running = true, burstTimer = null;
+    // A modest pixel ratio and lighter glow keep the animation smooth on slower devices.
+    let dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+    const resize = () => {
+        dpr = Math.min(window.devicePixelRatio || 1, 1.35);
+        canvas.width = Math.round(window.innerWidth * dpr);
+        canvas.height = Math.round(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener("resize", resize, { passive:true });
+
+    // Sound hook is ready for the file you will provide later.
+    const fireworksAudio = document.getElementById("fireworksAudio");
+    if(fireworksAudio){
+        fireworksAudio.currentTime = 0;
+        fireworksAudio.volume = 0.7;
+        fireworksAudio.play().catch(() => {
+            // Browsers may block playback until the visitor interacts with the page.
+        });
+    }
+
+    const colors = ["#ff68b4", "#ffd166", "#a99bff", "#8eeaff", "#ffffff", "#ff9b70", "#9cffd0"];
+    function burst(x, y, grand = false){
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const count = grand ? 96 : 52 + Math.floor(Math.random() * 23);
+        rings.push({x, y, radius:2, alpha:.78, color, speed:grand ? 2.6 : 2.1});
+        for(let i=0;i<count;i++){
+            const angle = (Math.PI * 2 * i / count) + (Math.random() - .5) * .10;
+            const speed = (grand ? 1.0 : .75) + Math.random() * (grand ? 3.8 : 3.1);
+            particles.push({
+                x, y,
+                vx:Math.cos(angle) * speed,
+                vy:Math.sin(angle) * speed,
+                gravity:.016 + Math.random() * .026,
+                drag:.984 + Math.random() * .009,
+                life:0,
+                max:42 + Math.random() * 30,
+                color: Math.random() < .18 ? "#fff8d8" : color,
+                size:.8 + Math.random() * 1.5,
+                twinkle:Math.random() * Math.PI * 2
+            });
+        }
+    }
+
+    const w = window.innerWidth, h = window.innerHeight;
+    burst(w*.22, h*.36, true);
+    burst(w*.78, h*.31, true);
+    burst(w*.50, h*.22, true);
+    // Staggered bursts feel grand without overloading the frame rate.
+    burstTimer = setInterval(() => {
+        if(!running) return;
+        burst(window.innerWidth * (.10 + Math.random() * .80), window.innerHeight * (.14 + Math.random() * .45), Math.random() > .68);
+        if(Math.random() > .58){
+            setTimeout(() => {
+                if(running) burst(window.innerWidth * (.12 + Math.random()*.76), window.innerHeight*(.16+Math.random()*.40));
+            }, 170);
+        }
+    }, 420);
+
+    const started = performance.now();
+    let lastFrame = 0;
+    function frame(now){
+        if(!running) return;
+        // Avoid unnecessary work when the browser delivers frames unusually close together.
+        if(now - lastFrame < 12){ requestAnimationFrame(frame); return; }
+        lastFrame = now;
+        const width = window.innerWidth, height = window.innerHeight;
+        ctx.clearRect(0, 0, width, height);
+
+        // Subtle, fixed twinkling stars give the night sky depth.
+        for(let i=0;i<48;i++){
+            const x = (i*173.5 + 23) % width;
+            const y = (i*83.7 + 11) % (height*.78);
+            ctx.globalAlpha = .15 + .25 * (0.5 + 0.5*Math.sin(now/320+i*1.7));
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(x, y, 1.2, 1.2);
+        }
+        ctx.globalAlpha = 1;
+
+        rings = rings.filter(r => r.alpha > .035);
+        for(const r of rings){
+            r.radius += r.speed;
+            r.alpha *= .935;
+            ctx.globalAlpha = r.alpha;
+            ctx.strokeStyle = r.color;
+            ctx.lineWidth = 1.25;
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, r.radius, 0, Math.PI*2);
+            ctx.stroke();
+        }
+
+        particles = particles.filter(p => p.life < p.max);
+        // Draw fine trails without a heavy per-particle blur, reducing lag significantly.
+        ctx.shadowBlur = 0;
+        for(const p of particles){
+            const previousX = p.x, previousY = p.y;
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += p.gravity;
+            p.vx *= p.drag;
+            p.vy *= p.drag;
+            p.life++;
+            const fade = Math.max(0, 1 - p.life/p.max);
+            ctx.globalAlpha = fade * (.76 + .24*Math.sin(p.life*.65+p.twinkle));
+            ctx.strokeStyle = p.color;
+            ctx.lineWidth = p.size;
+            ctx.beginPath();
+            ctx.moveTo(previousX, previousY);
+            ctx.lineTo(p.x, p.y);
+            ctx.stroke();
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size*.65, 0, Math.PI*2);
+            ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+
+        if(now-started < 3000){
+            requestAnimationFrame(frame);
+        }else{
+            clearInterval(burstTimer);
+            running = false;
+            window.removeEventListener("resize", resize);
+            ctx.clearRect(0, 0, width, height);
+            canvas.style.display = "none";
+            if(fireworksAudio){
+                fireworksAudio.pause();
+                fireworksAudio.currentTime = 0;
+            }
+        }
+    }
+    requestAnimationFrame(frame);
+}
+
+/* =========================================================
+   FEEDBACK SUBMIT
+   ========================================================= */
+
+document
+.getElementById("feedbackForm")
+.addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+
+    const enteredName =
+        document
+        .getElementById("userName")
+        .value
+        .trim();
+
+
+    if(!enteredName){
+
+        return;
+
+    }
+
+
+    /* Keep the surprise name from the actual feedback form */
+
+    CONFIG.friendName =
+        enteredName;
+
+
+    document
+    .getElementById("heroName")
+    .textContent =
+        enteredName;
+
+
+    document
+    .getElementById("finalName")
+    .textContent =
+        enteredName;
+
+
+    /* Hide feedback page */
+
+    feedbackPage.style.display =
+        "none";
+
+
+    /* Show transition */
+
+    transitionPage.style.display =
+        "flex";
+
+    startEntryFireworks();
+
+    /* Let the night-sky fireworks play before revealing the surprise */
+
+    setTimeout(() => {
+
+        transitionPage.style.display =
+            "none";
+
+        surprisePage.style.display =
+            "block";
+
+        window.scrollTo({
+            top:0,
+            behavior:"instant"
+        });
+        const birthdayMusic =
+    document.getElementById("birthdayMusic");
+
+if(birthdayMusic){
+
+    birthdayMusic.volume = 0.5;
+
+    birthdayMusic.play().catch(() => {
+        console.log("Music autoplay was blocked by the browser.");
+    });
+
+}
+
+    },3000);
+
+});
+
+
+/* =========================================================
+   OPEN SECRET
+   ========================================================= */
+
+function openSecret(){
+
+    surprisePage.style.display =
+        "none";
+
+    secretPage.style.display =
+        "flex";
+
+    window.scrollTo({
+        top:0,
+        behavior:"instant"
+    });
+
+    setTimeout(() => {
+
+        const input =
+            document.getElementById(
+                "secretInput"
+            );
+
+        if(input){
+            input.focus();
+        }
+
+    },100);
+
+}
+
+
+/* =========================================================
+   CHECK SECRET
+   ========================================================= */
+
+function checkSecret(){
+
+    const input =
+        document
+        .getElementById("secretInput")
+        .value
+        .trim();
+
+
+    const error =
+        document
+        .getElementById("secretError");
+
+
+    if(
+        input.toLowerCase() ===
+        CONFIG.secretKey.toLowerCase()
+    ){
+
+        error.style.display =
+            "none";
+
+        secretPage.style.display =
+            "none";
+
+        finalPage.style.display =
+            "block";
+
+        window.scrollTo({
+            top:0,
+            behavior:"instant"
+        });
+
+        createExtraStars();
+
+    }else{
+
+        error.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================================================
+   ENTER KEY SUPPORT
+   ========================================================= */
+
+document
+.getElementById("secretInput")
+.addEventListener("keydown",function(event){
+
+    if(event.key === "Enter"){
+
+        checkSecret();
+
+    }
+
+});
+
+
+/* =========================================================
+   BACKGROUND STARS
+   ========================================================= */
+
+function createStars(){
+
+    for(let i=0;i<80;i++){
+
+        const star =
+            document.createElement("div");
+
+        star.className =
+            "star";
+
+        star.style.left =
+            Math.random()*100 + "%";
+
+        star.style.top =
+            Math.random()*100 + "%";
+
+        star.style.opacity =
+            Math.random();
+
+        star.style.transform =
+            `scale(${Math.random()*2})`;
+
+        document.body.appendChild(star);
+
+    }
+
+}
+
+
+/* =========================================================
+   EXTRA STARS FOR FINAL PAGE
+   ========================================================= */
+
+function createExtraStars(){
+
+    for(let i=0;i<60;i++){
+
+        const star =
+            document.createElement("div");
+
+        star.className =
+            "star";
+
+        star.style.left =
+            Math.random()*100 + "%";
+
+        star.style.top =
+            Math.random()*100 + "%";
+
+        star.style.opacity =
+            .3 + Math.random()*.7;
+
+        document.body.appendChild(star);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
